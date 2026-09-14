@@ -1,5 +1,6 @@
 package com.nonsyncbobbal.orderservice;
 
+import com.nonsyncbobbal.orderservice.stubs.InventoryClientStub;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,11 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.postgresql.PostgreSQLContainer;
+import org.wiremock.spring.EnableWireMock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EnableWireMock
 class OrderServiceApplicationTests {
 
     @ServiceConnection
@@ -31,6 +34,7 @@ class OrderServiceApplicationTests {
         postgreSQLContainer.start();
     }
 
+
     @Test
     void shouldSubmitOrder() {
         String body = """
@@ -40,6 +44,7 @@ class OrderServiceApplicationTests {
                     "quantity": 2
                 }
                 """;
+        InventoryClientStub.stubInventoryClient("Iphone_13", 2);
         var responseBodyString = RestAssured.given()
                 .contentType("application/json")
                 .body(body)

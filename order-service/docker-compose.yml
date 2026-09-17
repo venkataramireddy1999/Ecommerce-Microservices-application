@@ -9,5 +9,5 @@ services:
     ports:
       - "5434:5432"
     volumes:
-      - ./postgresql:/var/lib/postgresql/data
+      - D:/Backend/Docker_Volumes/ecommerce-microservices/order-service/postgresql:/var/lib/postgresql/data
       - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql

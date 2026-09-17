@@ -9,4 +9,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - "D:/Backend/Docker_Volumes:/data/db"
+      - "D:/Backend/Docker_Volumes/ecommerce-microservice/product-service:/data/db"
